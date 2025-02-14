@@ -25,6 +25,10 @@ The project is organized into two main directories:
 - ZITADEL key.json file (I am sending it via email)
   - Place the received key.json file in the `backend` folder before running the application
   - Note: This file contains sensitive authentication information and should not be pushed
+- Available ports:
+  - Port 3000 for the frontend application
+  - Port 8080 for the backend service
+  - Please ensure these ports are not in use by other applications
 
 ## Quick Start
 
@@ -38,7 +42,7 @@ The project is organized into two main directories:
    cp /path/to/your/key.json backend/
    ```
 
-3. Start the application using Docker Compose:
+3. Start the application using Docker Compose from the project's root directory:
    ```bash
    docker-compose up --build
    ```
