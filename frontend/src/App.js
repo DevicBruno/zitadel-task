@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Callback from "./components/Callback";
 import authConfig from "./authConfig";
 import { UserManager, WebStorageStateStore } from "oidc-client-ts";
+import EndpointButtons from './components/EndpointButtons';
 
 function App() {
   const userManager = new UserManager({
@@ -35,6 +36,29 @@ function App() {
       }
     });
   }, [userManager]);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const storedUserInfo = localStorage.getItem('userInfo');
+      if (storedUserInfo) {
+        setUserInfo(JSON.parse(storedUserInfo));
+      }
+    };
+    
+    checkAuth();
+  }, []);
+
+  const handleLogout = async () => {
+    localStorage.removeItem('userInfo');
+    setUserInfo(null);
+  };
+
+  const handleLogin = async (user) => {
+    if (user) {
+      localStorage.setItem('userInfo', JSON.stringify(user));
+      setUserInfo(user);
+    }
+  };
 
   return (
     <BrowserRouter>

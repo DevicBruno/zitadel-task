@@ -1,8 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const EndpointButtons = ({ userInfo }) => {
+const EndpointButtons = ({ userInfo: propUserInfo }) => {
   const [publicResponse, setPublicResponse] = useState({ status: null, message: '' });
   const [protectedResponse, setProtectedResponse] = useState({ status: null, message: '' });
+  const [userInfo, setUserInfo] = useState(propUserInfo);
+
+  useEffect(() => {
+    setUserInfo(propUserInfo);
+  }, [propUserInfo]);
+
+  useEffect(() => {
+    if (!userInfo) {
+      const storedUserInfo = localStorage.getItem('userInfo');
+      if (storedUserInfo) {
+        setUserInfo(JSON.parse(storedUserInfo));
+      }
+    }
+  }, []);
+
+  // Updating localStorage when userInfo changes
+  useEffect(() => {
+    if (userInfo) {
+      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    } else {
+      localStorage.removeItem('userInfo');
+    }
+  }, [userInfo]);
 
   const testPublicEndpoint = async () => {
     try {
@@ -29,9 +52,12 @@ const EndpointButtons = ({ userInfo }) => {
 
   const testProtectedEndpoint = async () => {
     try {
+      // Getting fresh token from props or localStorage
+      const currentToken = propUserInfo?.access_token || userInfo?.access_token;
+      
       const response = await fetch('http://localhost:8080/api/private', {
         headers: {
-          'Authorization': `Bearer ${userInfo?.access_token}`
+          'Authorization': `Bearer ${currentToken}`
         }
       });
       
