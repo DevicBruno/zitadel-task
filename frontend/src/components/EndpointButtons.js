@@ -95,7 +95,7 @@ const EndpointButtons = ({ userInfo }) => {
           </span>
           <br />
           <span style={{ marginTop: '5px', display: 'block' }}>
-            {publicResponse.message || 'Click button to test endpoint'}
+            {publicResponse.message || 'Click button to test endpoint and you will see message from the backend, response code and status!'}
           </span>
         </div>
       </div>
@@ -111,7 +111,7 @@ const EndpointButtons = ({ userInfo }) => {
           </span>
           <br />
           <span style={{ marginTop: '5px', display: 'block' }}>
-            {protectedResponse.message || 'Click button to test endpoint'}
+            {protectedResponse.message || 'Click button to test endpoint and you will see message from the backend, response code and status!'}
           </span>
         </div>
       </div>
