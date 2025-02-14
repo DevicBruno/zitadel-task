@@ -22,6 +22,9 @@ The project is organized into two main directories:
 ## Prerequisites
 
 - Docker and Docker Compose
+- ZITADEL key.json file (I am sending it via email)
+  - Place the received key.json file in the `backend` folder before running the application
+  - Note: This file contains sensitive authentication information and should not be pushed
 
 ## Quick Start
 
@@ -30,12 +33,17 @@ The project is organized into two main directories:
    git clone https://github.com/DevicBruno/zitadel-task
    ```
 
-2. Start the application using Docker Compose:
+2. Place the ZITADEL key.json file (received via email) in the `backend` folder:
+   ```bash
+   cp /path/to/your/key.json backend/
+   ```
+
+3. Start the application using Docker Compose:
    ```bash
    docker-compose up --build
    ```
 
-3. Access the application:
+4. Access the application:
    - Open your browser and navigate to `http://localhost:3000`
    - The frontend will be available and you can test both authenticated and public endpoints
 
