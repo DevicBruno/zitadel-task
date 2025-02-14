@@ -85,6 +85,7 @@ When you are logged in you should be able to refresh the page and see that you a
 
 ## Future improvements
 
+- Use sercret manager for storing the key.json file and other sensitive information
 - Add tests (thought about that but there were not much logic to be tested)
 - Consider using cookies instead of local storage for storing the token
 - Add a proper logging system with levels like info, warning, error, etc.
