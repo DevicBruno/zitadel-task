@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import EndpointButtons from './EndpointButtons';
 
-const Login = ({ auth, handleLogin, userManager }) => {
+const Login = ({ auth, handleLogin }) => {
   return (
     <div>
       {auth === null && <div>Loading...</div>}

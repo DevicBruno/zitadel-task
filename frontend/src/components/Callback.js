@@ -45,13 +45,7 @@ const Callback = ({ auth, setAuth, userManager, userInfo, setUserInfo, handleLog
     );
   }
   else {
-    return (
-      <div>
-        <div>Loading...</div>
-        <hr style={{ margin: '30px 0' }} />
-        <EndpointButtons userInfo={null} />
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 };
 

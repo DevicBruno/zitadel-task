@@ -4,7 +4,6 @@ import Login from "./components/Login";
 import Callback from "./components/Callback";
 import authConfig from "./authConfig";
 import { UserManager, WebStorageStateStore } from "oidc-client-ts";
-import EndpointButtons from './components/EndpointButtons';
 
 function App() {
   const userManager = new UserManager({
@@ -16,14 +15,10 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
 
   function authorize() {
-    // Generate a random state
-    const state = Math.random().toString(36).substring(7);
-    userManager.signinRedirect({ state });
+    userManager.signinRedirect({ state: "a2123a67ff11413fa19217a9ea0fbad5" });
   }
 
   function clearAuth() {
-    setAuthenticated(false);
-    setUserInfo(null);
     userManager.signoutRedirect();
   }
 
@@ -37,41 +32,12 @@ function App() {
     });
   }, [userManager]);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const storedUserInfo = localStorage.getItem('userInfo');
-      if (storedUserInfo) {
-        setUserInfo(JSON.parse(storedUserInfo));
-      }
-    };
-    
-    checkAuth();
-  }, []);
-
-  const handleLogout = async () => {
-    localStorage.removeItem('userInfo');
-    setUserInfo(null);
-  };
-
-  const handleLogin = async (user) => {
-    if (user) {
-      localStorage.setItem('userInfo', JSON.stringify(user));
-      setUserInfo(user);
-    }
-  };
-
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={
-            <Login 
-              auth={authenticated} 
-              handleLogin={authorize}
-              userManager={userManager}
-            />
-          }
+          element={<Login auth={authenticated} handleLogin={authorize} />}
         />
         <Route
           path="/callback"
