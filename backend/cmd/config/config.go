@@ -21,24 +21,24 @@ type Cfg struct {
 }
 
 func init() {
-	viper.SetConfigFile(".env")
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatal("Error reading config file: " + err.Error())
-	}
-
 	viper.AllowEmptyEnv(false)
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
 
+	_ = viper.BindEnv("domain", "DOMAIN")
+	_ = viper.BindEnv("key_path", "KEY_PATH")
+	_ = viper.BindEnv("server_port", "SERVER_PORT")
+	_ = viper.BindEnv("frontend_url", "FRONTEND_URL")
+
+	// Unmarshal into struct
 	err := viper.Unmarshal(&Config)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Failed to unmarshal config:", err)
 	}
 
 	validate := validator.New()
-
 	err = validate.StructCtx(context.Background(), Config)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Validation failed:", err)
 	}
 }
