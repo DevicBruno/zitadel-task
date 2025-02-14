@@ -12,17 +12,12 @@ import (
 	"github.com/DevicBruno/zitadel-task/backend/cmd/config"
 )
 
-// NewAuthZ initializes the ZITADEL authorization.
-func NewAuthZ(ctx context.Context) *authorization.Authorizer[*oauth.IntrospectionContext] {
+// InitializeAuth initializes both ZITADEL authorization and middleware.
+func InitializeAuth(ctx context.Context) *middleware.Interceptor[*oauth.IntrospectionContext] {
 	authZ, err := authorization.New(ctx, zitadel.New(config.Config.Domain), oauth.DefaultAuthorization(config.Config.KeyPath))
 	if err != nil {
 		log.Fatalf("Failed to initialize ZITADEL authorization: %v", err)
 	}
 
-	return authZ
-}
-
-// NewMiddleware initializes the ZITADEL middleware.
-func NewMiddleware[T authorization.Ctx](authorizer *authorization.Authorizer[T]) *middleware.Interceptor[T] {
-	return middleware.New(authorizer)
+	return middleware.New(authZ)
 }

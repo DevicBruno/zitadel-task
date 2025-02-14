@@ -14,11 +14,8 @@ func main() {
 
 	ctx := context.Background()
 
-	// Initialize ZITADEL authorization
-	authZ := bootstrap.NewAuthZ(ctx)
-
-	// Initialize the HTTP middleware
-	mw := bootstrap.NewMiddleware(authZ)
+	// Initialize ZITADEL authorization and middleware
+	mw := bootstrap.InitializeAuth(ctx)
 
 	// Create a new mux router
 	mux := server.NewMux(mw)
@@ -28,9 +25,7 @@ func main() {
 
 	// Create a new server and start it
 	srv := server.NewServer(handler, config.Config.ServerPort)
-
-	log.Printf("Server starting on port %s", config.Config.ServerPort)
-	if err := srv.Start(); err != nil {
+	if err := srv.Start(ctx); err != nil {
 		log.Fatal(err)
 	}
 }
