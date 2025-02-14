@@ -119,4 +119,4 @@ const EndpointButtons = ({ userInfo }) => {
   );
 };
 
-export default EndpointButtons; 
+export default EndpointButtons;
