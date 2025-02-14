@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"log"
 
 	"github.com/DevicBruno/zitadel-task/backend/cmd/bootstrap"
 	"github.com/DevicBruno/zitadel-task/backend/cmd/config"
@@ -25,7 +24,5 @@ func main() {
 
 	// Create a new server and start it
 	srv := server.NewServer(handler, config.Config.ServerPort)
-	if err := srv.Start(ctx); err != nil {
-		log.Fatal(err)
-	}
+	srv.Start(ctx)
 }

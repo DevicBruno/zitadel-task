@@ -34,7 +34,7 @@ func NewServer(handler http.Handler, port string) *Server {
 }
 
 // Start starts the server with graceful shutdown handling.
-func (s *Server) Start(ctx context.Context) error {
+func (s *Server) Start(ctx context.Context) {
 	serverErrs := make(chan error, 1)
 	defer close(serverErrs)
 
@@ -75,6 +75,4 @@ func (s *Server) Start(ctx context.Context) error {
 			log.Printf("http server listen and serve finished with closed error: %v", err)
 		}
 	}
-
-	return nil
 }
