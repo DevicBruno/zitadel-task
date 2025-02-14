@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	"log"
 	"strings"
 
 	"github.com/go-playground/validator"
@@ -22,7 +23,7 @@ type Cfg struct {
 func init() {
 	viper.SetConfigFile(".env")
 	if err := viper.ReadInConfig(); err != nil {
-		panic("Error reading config file: " + err.Error())
+		log.Fatal("Error reading config file: " + err.Error())
 	}
 
 	viper.AllowEmptyEnv(false)
@@ -31,13 +32,13 @@ func init() {
 
 	err := viper.Unmarshal(&Config)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	validate := validator.New()
 
 	err = validate.StructCtx(context.Background(), Config)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
