@@ -13,7 +13,7 @@ const Login = ({ auth, handleLogin }) => {
               handleLogin();
             }}
           >
-            Please log in.
+            Please log in or register.
           </button>
         </div>
       )}

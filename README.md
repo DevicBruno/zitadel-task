@@ -47,6 +47,23 @@ The project is organized into two main directories:
    - Open your browser and navigate to `http://localhost:3000`
    - The frontend will be available and you can test both authenticated and public endpoints
 
+## Application
+
+Entire application is basically just 2 buttons, one is calling the public endpoint and other one is calling the protected endpoint. For the protected endpoint, you need to be logged in or registered as new user.
+
+You can register or login by clicking on the button "Please log in or register."
+
+Example of pressing both buttons while not logged in:
+![Demo Screenshot](./docs/images/unauthorized-flow.png)
+
+Example of pressing both buttons while logged in:
+![Demo Screenshot](./docs/images/authorized-flow.png)
+
+Messages shown below status code is message sent from backend as a response to the request.
+
+When you are logged in you should be able to refresh the page and see that you are still logged in and you should be able to logout and return back to the login page.
+
+
 ## Architecture
 
 ### Frontend (React)
@@ -80,8 +97,8 @@ Also, the onboarding materials were extremly useful and easy to follow.
 There were just 2 smaller issues I stumbled upon. 
 
 First one was that I got email on langunage / script I do not understand when I created new user (locale for this user was set to bg). Same goes for all the users I created locally.
-![Demo Screenshot](./images/wrong-language-screenshot.png)
+![Demo Screenshot](./docs/images/wrong-language-screenshot.png)
 
 
 Second one was, when looking into console on frontend after the login, I saw that frontend application from the example is sending 2 requests to the backend on endpoint https://bruno-devic-interview-task-instance-ujvch7.us1.zitadel.cloud/oauth/v2/token. One always returns 404, and other one returns 200 OK.
-![Demo Screenshot](./images/two-token-requests.png)
+![Demo Screenshot](./docs/images/two-token-requests.png)
