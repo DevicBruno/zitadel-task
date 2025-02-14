@@ -5,12 +5,30 @@ import EndpointButtons from './EndpointButtons';
 const Callback = ({ auth, setAuth, userManager, userInfo, setUserInfo, handleLogout }) => {
 
   useEffect(() => {
+    const getExistingUser = async () => {
+      const user = await userManager.getUser();
+      if (user) {
+        setAuth(true);
+        const access_token = user.access_token;
+        // Make a request to the user info endpoint using the access token
+        fetch(authConfig.userinfo_endpoint, {
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        })
+          .then(response => response.json())
+          .then(userInfo => {
+            setUserInfo({ ...userInfo, access_token });
+          });
+      }
+    };
+
     if (auth === null) {
+      // First try to complete the redirect callback
       userManager.signinRedirectCallback().then((user) => {
         if (user) {
           setAuth(true);
           const access_token = user.access_token;
-          // Make a request to the user info endpoint using the access token
           fetch(authConfig.userinfo_endpoint, {
             headers: {
               'Authorization': `Bearer ${access_token}`
@@ -23,11 +41,15 @@ const Callback = ({ auth, setAuth, userManager, userInfo, setUserInfo, handleLog
         } else {
           setAuth(false);
         }
-      }).catch((error) => {
-        setAuth(false);
+      }).catch(() => {
+        // If callback fails, check for existing session
+        getExistingUser();
       });
+    } else if (!userInfo) {
+      // If we have auth but no userInfo (like after refresh), get the user
+      getExistingUser();
     }
-  }, [auth, userManager, setAuth]);
+  }, [auth, userManager, setAuth, setUserInfo]);
 
   if (auth === true && userInfo) {
     return (
