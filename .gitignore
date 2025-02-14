@@ -1,6 +1,7 @@
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
+# Go ignores
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -23,3 +24,33 @@ go.work.sum
 
 # env file
 .env
+
+# Frontend / React ignores
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/yarn.lock
+frontend/package-lock.json
+
+# Frontend build outputs
+frontend/build/
+frontend/dist/
+frontend/.next/
+frontend/.nuxt/
+frontend/out/
+
+# Frontend coverage
+frontend/coverage/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Debug logs
+logs
+*.log
