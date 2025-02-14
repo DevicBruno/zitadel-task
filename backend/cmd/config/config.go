@@ -20,6 +20,11 @@ type Cfg struct {
 }
 
 func init() {
+	viper.SetConfigFile(".env")
+	if err := viper.ReadInConfig(); err != nil {
+		panic("Error reading config file: " + err.Error())
+	}
+
 	viper.AllowEmptyEnv(false)
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	viper.AutomaticEnv()
