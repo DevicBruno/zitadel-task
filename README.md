@@ -102,4 +102,5 @@ I encountered two minor issues:
 ![Demo Screenshot](./docs/images/wrong-language-screenshot.png)
 
 2. After login, the frontend console shows two requests to the endpoint https://bruno-devic-interview-task-instance-ujvch7.us1.zitadel.cloud/oauth/v2/token. One request returns a 404 status code, while the other returns 200 OK.
+
 ![Demo Screenshot](./docs/images/two-token-requests.png)
