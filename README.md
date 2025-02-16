@@ -83,7 +83,6 @@ When you are logged in, you should be able to refresh the page and remain logged
 
 ## Future Improvements
 
-- Would add authorization code flow with backend
 - Use a secret manager for storing the key.json file and other sensitive information
 - Add tests (considered but there wasn't much logic to be tested)
 - Consider using cookies instead of local storage for storing the token
