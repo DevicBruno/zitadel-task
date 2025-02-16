@@ -18,11 +18,10 @@ The project is organized into two main directories:
 - `frontend`: Contains the React application code
 - `backend`: Contains the Go application code
 
-
 ## Prerequisites
 
 - Docker and Docker Compose
-- ZITADEL key.json file (I am sending it via email)
+- ZITADEL key.json file (you will receive this via email)
   - Place the received key.json file in the `backend` folder before running the application
   - Note: This file contains sensitive authentication information and should not be pushed
 - Available ports:
@@ -33,19 +32,19 @@ The project is organized into two main directories:
 ## Quick Start
 
 1. Clone the repository:
-   ```bash
+ ```bash
    git clone https://github.com/DevicBruno/zitadel-task
-   ```
+ ```
 
 2. Place the ZITADEL key.json file (received via email) in the `backend` folder:
-   ```bash
+ ```bash
    cp /path/to/your/key.json backend/
-   ```
+ ```
 
 3. Start the application using Docker Compose from the project's root directory:
-   ```bash
+ ```bash
    docker-compose up --build
-   ```
+ ```
 
 4. Access the application:
    - Open your browser and navigate to `http://localhost:3000`
@@ -53,9 +52,9 @@ The project is organized into two main directories:
 
 ## Application
 
-Entire application is basically just 2 buttons, one is calling the public endpoint and other one is calling the protected endpoint. For the protected endpoint, you need to be logged in or registered as new user.
+The application consists of two buttons: one to call the public endpoint and another to call the protected endpoint. To access the protected endpoint, you need to be logged in or registered as a new user.
 
-You can register or login by clicking on the button "Please log in or register."
+You can register or log in by clicking "Please log in or register."
 
 Example of pressing both buttons while not logged in:
 ![Demo Screenshot](./docs/images/unauthorized-flow.png)
@@ -63,47 +62,45 @@ Example of pressing both buttons while not logged in:
 Example of pressing both buttons while logged in:
 ![Demo Screenshot](./docs/images/authorized-flow.png)
 
-Messages shown below status code is message sent from backend as a response to the request.
+Messages shown below the status code are messages sent from the backend as a response to the request.
 
-When you are logged in you should be able to refresh the page and see that you are still logged in and you should be able to logout and return back to the login page.
-
+When you are logged in, you should be able to refresh the page and remain logged in. You can also log out and return to the login page.
 
 ## Architecture
 
 ### Frontend (React)
 - Uses [ZITADEL's React authentication example](https://github.com/zitadel/react-user-authentication) as a starting point
-- Only addition to the page are 2 buttons to test the endpoints and authentication
-- Small improvement / fix of refresh page not working when loged in, page was crashing
+- Added two buttons to test the authentication
+- Fixed page refresh functionality when logged in
 
 ### Backend (Go)
-- Written in Go by following instructions from the https://zitadel.com/docs/examples/secure-api/go
+- Written in Go following instructions from https://zitadel.com/docs/examples/secure-api/go
 - Provides two endpoints to demonstrate authentication:
   - `/api/public`: Accessible without authentication
-  - `/api/protected`: Requires valid ZITADEL authentication token
+  - `/api/private`: Requires valid ZITADEL authentication token
 - Supports graceful shutdown of the server
-- Has Makefile for easy lint and formatting
+- Includes Makefile for easy linting and formatting
 
-## Future improvements
+## Future Improvements
 
-- Use sercret manager for storing the key.json file and other sensitive information
-- Add tests (thought about that but there were not much logic to be tested)
+- Would add authorization code flow with backend
+- Use a secret manager for storing the key.json file and other sensitive information
+- Add tests (considered but there wasn't much logic to be tested)
 - Consider using cookies instead of local storage for storing the token
-- Add a proper logging system with levels like info, warning, error, etc.
+- Add a proper logging system with levels (info, warning, error, etc.)
 
 ## Observations
 
-ZITADEL SDK for Golang and Admin dashboard are very powerful and easy to use tools that were intuitive from the beginning. I played around a bit with it and really liked how branding is handled - really easy way to do big changes regarding your branding colors and logo on login - I even did my own.
+The ZITADEL SDK for Golang and Admin dashboard are powerful and user-friendly tools that were intuitive from the start. I experimented with the branding features and was impressed by how easily you can modify colors and logos on the login page.
 
-Also, the onboarding materials were extremly useful and easy to follow.
+The onboarding materials were extremely useful and easy to follow.
 
+## Issues Found
 
-## Issues found
+I encountered two minor issues:
 
-There were just 2 smaller issues I stumbled upon. 
-
-First one was that I got email on langunage / script I do not understand when I created new user (locale for this user was set to bg). Same goes for all the users I created locally.
+1. When creating a new user, I received emails in an unfamiliar language/script (locale for this user was set to bg). This occurred for all locally created users.
 ![Demo Screenshot](./docs/images/wrong-language-screenshot.png)
 
-
-Second one was, when looking into console on frontend after the login, I saw that frontend application from the example is sending 2 requests to the backend on endpoint https://bruno-devic-interview-task-instance-ujvch7.us1.zitadel.cloud/oauth/v2/token. One always returns 404, and other one returns 200 OK.
+2. After login, the frontend console shows two requests to the endpoint https://bruno-devic-interview-task-instance-ujvch7.us1.zitadel.cloud/oauth/v2/token. One request returns a 404 status code, while the other returns 200 OK.
 ![Demo Screenshot](./docs/images/two-token-requests.png)
